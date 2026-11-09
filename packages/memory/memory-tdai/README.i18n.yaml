@@ -1,0 +1,76 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/memory/memory-tdai/README.md
+/:
+  en: 9e87d0f7bfcdf838
+  zh: 204e37ddc4be03ea
+/deepseek-ai-dsh-memory-tdai:
+  en: 6be2a686656ae0c2
+  zh: 38dcf7226f283a69
+/deepseek-ai-dsh-memory-tdai/summary:
+  en: 04ef5073e30a0766
+  zh: 094443f64a7b5009
+/deepseek-ai-dsh-memory-tdai/table-of-contents:
+  en: e9bae0912542e7d6
+  zh: 09388d293f9be9cb
+/deepseek-ai-dsh-memory-tdai/use-this-package:
+  en: bbff250eba0f1b89
+  zh: 0a618f05cc88ee2b
+/deepseek-ai-dsh-memory-tdai/use-this-package/prerequisites:
+  en: 559e4eb8c0898fb4
+  zh: 1f70e5409aa058dc
+/deepseek-ai-dsh-memory-tdai/use-this-package/mount-the-plugin:
+  en: c51aa5f49729f2aa
+  zh: cd0bf7b00c43fea3
+/deepseek-ai-dsh-memory-tdai/use-this-package/configuration:
+  en: 1c9e844f87beebea
+  zh: 5150818fd8f6243c
+/deepseek-ai-dsh-memory-tdai/understand-the-implementation:
+  en: ee4615a04fa6503d
+  zh: ee2c5fb2204a43cf
+/deepseek-ai-dsh-memory-tdai/understand-the-implementation/three-seams:
+  en: dc1fb49c08f61304
+  zh: 27290a0bc323bfe6
+/deepseek-ai-dsh-memory-tdai/understand-the-implementation/source-map:
+  en: dfd0bfd989fd549d
+  zh: 7b3025ae68fb577b
+/deepseek-ai-dsh-memory-tdai/further-exploration:
+  en: ccdb1821336bb0b3
+  zh: 79c81ded61b6bb18
+/deepseek-ai-dsh-memory-tdai/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-memory-tdai/model-experience/pre-answer-recall:
+  en: 66f1fc13f916899c
+  zh: d3b2ad199cc6bb87
+/deepseek-ai-dsh-memory-tdai/model-experience/pre-answer-recall/what-the-model-sees:
+  en: 1e132281a51a3687
+  zh: 533177ddee470480
+/deepseek-ai-dsh-memory-tdai/model-experience/pre-answer-recall/what-the-model-sees/first-step:
+  en: 58d49c94906946dd
+  zh: 2ca950f90b1c00b9
+/deepseek-ai-dsh-memory-tdai/model-experience/pre-answer-recall/token-effect:
+  en: 2845ed9e00ea1dd8
+  zh: 2436893120fc7503
+/deepseek-ai-dsh-memory-tdai/model-experience/pre-answer-recall/kv-cache-effect:
+  en: 4dc0ceebb642d264
+  zh: a854e98ac58dabfc
+/deepseek-ai-dsh-memory-tdai/model-experience/on-demand-search:
+  en: 52efece7cf7986ac
+  zh: ff3d544cc0d3a120
+/deepseek-ai-dsh-memory-tdai/model-experience/on-demand-search/what-the-model-sees:
+  en: e0cd995913c71bb3
+  zh: 50c90519be5fb146
+/deepseek-ai-dsh-memory-tdai/model-experience/on-demand-search/what-the-model-sees/search-result:
+  en: 76e6c14bfdd0fe82
+  zh: 571ee1ffecfa32dd
+/deepseek-ai-dsh-memory-tdai/model-experience/on-demand-search/token-effect:
+  en: cce788677b8e431f
+  zh: a383ee5a2082b2ca
+/deepseek-ai-dsh-memory-tdai/model-experience/on-demand-search/kv-cache-effect:
+  en: 478b4ecaa4cae60e
+  zh: 101c9bea61b7bb65
+/deepseek-ai-dsh-memory-tdai/known-limitations-and-deferred-work:
+  en: d69d39e530994c64
+  zh: 324ec27e82b65608

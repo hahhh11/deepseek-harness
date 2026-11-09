@@ -1,0 +1,36 @@
+# Opt-in reference for @deepseek-ai/dsh-memory-tdai (TencentDB Agent Memory).
+#
+# The gateway is a separate process and is NOT shipped with DSH: install
+# @tencentdb-agent-memory/memory-tencentdb globally first, then either let this
+# plugin spawn it (sidecar.autoStart + sidecar.command) or start it yourself and
+# leave autoStart false. The gateway needs an OpenAI-compatible model for the
+# L1 -> L2 -> L3 extraction pipeline; pass its credentials through
+# sidecar.env or export them before starting DSH.
+#
+# Recall costs one gateway round-trip on the first step of every turn, bounded
+# by recall.timeoutMs. Lower the budget or set recall.enabled false when the
+# gateway is remote.
+- insert:
+    - id: memory-tdai
+      name: '@deepseek-ai/dsh-memory-tdai'
+      config:
+        baseUrl: http://127.0.0.1:8420
+        serviceId: default
+        recall:
+          enabled: true
+          timeoutMs: 1500
+          maxChars: 2000
+          limit: 5
+        capture:
+          enabled: true
+        tools:
+          enabled: true
+        sidecar:
+          autoStart: false
+          # Set both autoStart: true and a command to let DSH own the gateway:
+          #   command: sh -c 'exec npx --yes tsx "$(npm root -g)/@tencentdb-agent-memory/memory-tencentdb/src/gateway/server.ts"'
+          logDir: !!js >-
+            process.getBuiltinModule('node:path').join(process.getBuiltinModule('node:os').homedir(), '.dsh', 'logs', 'memory-tdai')
+          env:
+            TDAI_LLM_BASE_URL: https://api.deepseek.com/v1
+            TDAI_LLM_MODEL: deepseek-chat
