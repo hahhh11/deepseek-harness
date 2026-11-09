@@ -37,11 +37,11 @@ describe('resolveConfig', () => {
   })
 
   it('rejects autoStart without a command', () => {
-    expect(() => resolveConfig({ sidecar: { autoStart: true } })).toThrow(/requires sidecar\.command/)
+    expect(() => resolveConfig({ sidecar: { autoStart: true, startupTimeoutMs: 20000 } })).toThrow(/requires sidecar\.command/)
   })
 
   it('accepts autoStart with a command', () => {
-    expect(resolveConfig({ sidecar: { autoStart: true, command: 'gateway' } }).sidecar.command).toBe('gateway')
+    expect(resolveConfig({ sidecar: { autoStart: true, command: 'gateway', startupTimeoutMs: 20000 } }).sidecar.command).toBe('gateway')
   })
 
   it('validates the schema defaults', () => {
