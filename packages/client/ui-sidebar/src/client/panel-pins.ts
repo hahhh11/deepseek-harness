@@ -4,7 +4,8 @@ import { createSnapshotStore, type ObservableSnapshot } from '@deepseek-ai/dsh-c
 /** Panel whose launcher always shows and never enters the customization list. */
 export const FIXED_PANEL_ID = 'plugins'
 
-const NO_PANELS: readonly string[] = []
+/** Panels that start inside the More menu instead of pinned into the rail. */
+const DEFAULT_UNPINNED: readonly string[] = ['skill-catalog', 'dsh-context', 'memory-panel']
 
 /** Unpinned panel ids and their only mutation. */
 export interface PanelPins {
@@ -23,7 +24,7 @@ export interface PanelPins {
  * @returns Unpinned panel ids and the pin mutation.
  */
 export function createPanelPins(): PanelPins {
-  const store = createSnapshotStore<{ readonly unpinned: readonly string[] }>({ unpinned: NO_PANELS })
+  const store = createSnapshotStore<{ readonly unpinned: readonly string[] }>({ unpinned: DEFAULT_UNPINNED })
   return {
     unpinned: { getSnapshot: () => store.getSnapshot().unpinned, subscribe: listener => store.subscribe(listener) },
     setPinned: (id, pinned) => {

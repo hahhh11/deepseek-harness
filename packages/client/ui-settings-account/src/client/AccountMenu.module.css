@@ -13,6 +13,9 @@
 /* Signed-out launcher: a 32px More row carrying the 14px ellipsis. */
 .trigger[data-signed-out='true']:not([data-collapsed='true']) { height: 32px; padding: 6px calc(var(--dsh-sidebar-row-padding) - var(--dsh-sidebar-paint-inset)); line-height: 20px; }
 
+/* Direct Settings row replacing the More menu: matches the 32px footer rows. */
+.settings:not([data-collapsed='true']) { height: 32px; line-height: 20px; }
+
 /* Signed-out menu card and rows; listClassName reaches the portaled card. */
 .signedOutMenu[role='menu'] {
   min-width: 124px;
