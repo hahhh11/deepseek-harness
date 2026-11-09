@@ -67,6 +67,7 @@ import ScheduleService from '@deepseek-ai/dsh-schedule'
 import Lsp from '@deepseek-ai/dsh-lsp'
 import * as ToolLsp from '@deepseek-ai/dsh-tool-lsp'
 import * as ToolSkill from '@deepseek-ai/dsh-tool-skill'
+import * as ToolSearch from '@deepseek-ai/dsh-tool-search'
 import * as ToolSessionQuery from '@deepseek-ai/dsh-tool-session-query'
 import * as ToolJobs from '@deepseek-ai/dsh-tool-jobs'
 import BrowserUseRegistry from '@deepseek-ai/dsh-browser-use'
@@ -254,6 +255,18 @@ const TOOL_PACKAGES: ToolPackage[] = [
       await ctx.plugin(StagehandBrowserTools, {
         mode: 'launch', model: { modelName: 'openai/gpt-5.4-mini', apiKey: 'catalog-placeholder' },
       })
+    },
+  },
+  {
+    pkg: '@deepseek-ai/dsh-tool-search',
+    dir: 'tool-search',
+    source: 'packages/experimental/tool-search/src/index.ts',
+    requires: ['ctx.tools', 'ctx.systemPrompt'],
+    writes: ['tool/call', 'tool/result'],
+    async mount(ctx) {
+      // Harvest registers the loader and its catalog section; no agent exists,
+      // so no restriction is applied and nothing else is deferred.
+      await ctx.plugin(ToolSearch, {})
     },
   },
   {

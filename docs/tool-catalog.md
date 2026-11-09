@@ -19,6 +19,7 @@ This table connects model-visible tool names to the plugin package and service s
 | `@deepseek-ai/dsh-plugin-market` | `plugin_market` | `ctx.tools`, `ctx.pluginMarket` | `tool/call`, `tool/result` | - | - |
 | `@deepseek-ai/dsh-mcp-resources` | `list_mcp_resource_templates`, `list_mcp_resources`, `read_mcp_resource` | `ctx.tools`, `ctx.mcpResources` | `tool/call`, `tool/result` | - | - |
 | `@deepseek-ai/dsh-experimental-browser-use-stagehand-native` | `stagehand_act`, `stagehand_extract`, `stagehand_navigate`, `stagehand_observe`, `stagehand_screenshot`, `stagehand_tabs` | `ctx.browserUse`, `ctx.agents`, `ctx.tools`, `ctx.systemPrompt` | `tool/call`, `tool/result` | - | - |
+| `@deepseek-ai/dsh-tool-search` | `tool_search` | `ctx.tools`, `ctx.systemPrompt` | `tool/call`, `tool/result` | - | - |
 | `@deepseek-ai/dsh-action-cards` | `propose_action` | `ctx.tools`, `ctx.agents`, `ctx.sessionProjections`, `ctx.remoteAccess` | `tool/call`, `tool/result`, `plugin:action-cards/decision`, `user/message` | - | Declared only to an Agent that loaded the skill of a registered card kind; the kind packages register their actions, and the Personalized recommendations bundle supplies the shipped kinds. |
 | `@deepseek-ai/dsh-tool-ask-user` | `ask_user_question` | `ctx.tools`, `ctx.userQuestions` | `tool/call`, `tool/result after an answer or timeout`, `late user/message` | - | ask_user_question keeps the original blocking behavior by default; set `mode: timed` to opt into a foreground timeout and pending result while the question remains answerable. In timed mode, `timeout: -1` keeps that call blocking indefinitely. |
 | `@deepseek-ai/dsh-tool-executor-ptc` | `run_code` | `ctx.workingDirectory (Agent executions)`, `ctx.tools`, `ctx.ptcRuntime`, `ctx.systemPrompt` | `tool/call`, `one tool/ptc-dispatch-start + tool/ptc-dispatch pair per bridged sub-call`, `tool/result` | - | The PTC executor exposes only run_code to the model and declares other visible capabilities in a generated SDK in the runtime’s language. Program bindings enter the shared guarded tool pipeline in submission order; concurrency-safe bodies overlap up to maxParallelSubCalls, and nested results remain linked to the outer program. The resolved timeout and maxSubCallsPerMinute set the total call allowance; exceeding it terminates the program. |
@@ -497,6 +498,39 @@ List, create, select, or close a Stagehand browser tab.
 ```
 
 Source: [`packages/experimental/browser-use-stagehand-native/src/index.ts`](../packages/experimental/browser-use-stagehand-native/src/index.ts)
+
+<a id="deepseek-aidsh-tool-search"></a>
+
+## `@deepseek-ai/dsh-tool-search`
+
+### `tool_search`
+
+Load the schema of tools whose definitions were withheld to keep this request small. Call it with keywords, or with exact names from the deferred-tools catalog in the system prompt. A loaded tool becomes callable on the NEXT step, not in the same batch as this call.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "Keywords matched against deferred tool names and descriptions."
+    },
+    "names": {
+      "type": "array",
+      "description": "Exact tool names from the deferred-tools catalog, loaded without matching.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limit": {
+      "type": "number",
+      "description": "How many matches to load for this query. Defaults to the configured limit."
+    }
+  }
+}
+```
+
+Source: [`packages/experimental/tool-search/src/index.ts`](../packages/experimental/tool-search/src/index.ts)
 
 <a id="deepseek-aidsh-action-cards"></a>
 
