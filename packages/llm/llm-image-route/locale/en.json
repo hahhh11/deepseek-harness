@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Image model routing",
+    "description": "Routes image questions to a model that declares image input."
+  }
+}

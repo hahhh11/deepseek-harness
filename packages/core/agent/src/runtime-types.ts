@@ -336,6 +336,19 @@ declare module '@deepseek-ai/cordis' {
     'agent/inbox/discarded'(this: Scoped<Agent>, payload: { agent: Agent; message: UserMessage }): void
     // ---- the machine's extension points ----
     /**
+     * Resolve the model route for one proposed step before tools and prompt
+     * sections are assembled. Returning a different selection affects only
+     * this step; the Agent's persisted next selection remains unchanged.
+     * @param payload.agent - the agent proposing the step.
+     * @param payload.messages - messages removed from the inbox for this step.
+     * @param payload.turn - the turn that will own the step.
+     * @param payload.step - the step proposed by the loop.
+     * @param payload.signal - the current turn's cancellation signal.
+     * @param payload.modelSelection - the Agent's current selection before route policy.
+     * @mode waterfall
+     */
+    'agent/resolve-model'(this: Scoped<Agent>, payload: { agent: Agent; messages: UserMessage[]; turn: number; step: number; signal: AbortSignal; modelSelection: Readonly<ModelSelection> }, next: () => Promise<Readonly<ModelSelection>>): Promise<Readonly<ModelSelection>>
+    /**
      * Reject a proposed step or replace the messages that enter it. Calling
      * `next()` preserves the current messages.
      * @param payload.agent - the agent proposing the step.

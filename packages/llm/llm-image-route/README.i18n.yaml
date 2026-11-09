@@ -1,0 +1,52 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/llm/llm-image-route/README.md
+/:
+  en: 6023955c27a1f869
+  zh: 6007e18786b06c08
+/deepseek-ai-dsh-llm-image-route:
+  en: fdef4e5ab93a8005
+  zh: 9a2a04387f436361
+/deepseek-ai-dsh-llm-image-route/summary:
+  en: db9ac31dd0a7fa30
+  zh: eebf88e27b29784b
+/deepseek-ai-dsh-llm-image-route/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/deepseek-ai-dsh-llm-image-route/use-this-package:
+  en: 598960ab5a848a99
+  zh: ee9156c52c0ffba3
+/deepseek-ai-dsh-llm-image-route/use-this-package/when-to-choose-it:
+  en: 1c845da1a5dc8705
+  zh: 9ca7b3202e7bf83b
+/deepseek-ai-dsh-llm-image-route/use-this-package/minimal-configuration:
+  en: 44bf1c425295d04c
+  zh: 49f31d96acc7583d
+/deepseek-ai-dsh-llm-image-route/understand-the-implementation:
+  en: 769a5820a3932eac
+  zh: c683a572fa9517a1
+/deepseek-ai-dsh-llm-image-route/further-exploration:
+  en: 7474010f8699af31
+  zh: 4bee15f6f64a5445
+/deepseek-ai-dsh-llm-image-route/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-llm-image-route/model-experience/image-input-route:
+  en: d53f0e130cd5a53b
+  zh: 3f96508299ed6264
+/deepseek-ai-dsh-llm-image-route/model-experience/image-input-route/what-the-model-sees:
+  en: 831f8b3ffcc1bb17
+  zh: aab13fcc76bd7196
+/deepseek-ai-dsh-llm-image-route/model-experience/image-input-route/token-effect:
+  en: 29a10a491da225ea
+  zh: 0a5fb8412d2d67fe
+/deepseek-ai-dsh-llm-image-route/model-experience/image-input-route/kv-cache-effect:
+  en: 19168e961a06f406
+  zh: dcd79376d19c8c03
+/deepseek-ai-dsh-llm-image-route/known-limitations-and-deferred-work:
+  en: ddb77517ccea0928
+  zh: 87dacafa08958720
+/deepseek-ai-dsh-llm-image-route/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3c8bbe93d71a3377

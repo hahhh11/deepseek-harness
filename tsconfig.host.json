@@ -458,6 +458,7 @@
     { "path": "./packages/context/agent-instructions" },
     { "path": "./packages/core/agent-loop" },
     { "path": "./packages/llm/llm-retry" },
+    { "path": "./packages/llm/llm-image-route" },
     { "path": "./packages/subprocess/subprocess" },
     { "path": "./packages/subprocess/subprocess-local" },
     { "path": "./packages/ssh/ssh" },

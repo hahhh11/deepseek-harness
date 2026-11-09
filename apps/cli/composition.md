@@ -48,6 +48,8 @@ flowchart LR
   cfg --> plugin_dsh_base_jobs
   plugin_dsh_base_llm_retry["llm-retry<br/>@deepseek-ai/dsh-llm-retry"]
   cfg --> plugin_dsh_base_llm_retry
+  plugin_dsh_base_llm_image_route["llm-image-route<br/>@deepseek-ai/dsh-llm-image-route"]
+  cfg --> plugin_dsh_base_llm_image_route
   plugin_dsh_base_config_editor["config-editor<br/>@deepseek-ai/dsh-config-editor"]
   cfg --> plugin_dsh_base_config_editor
   plugin_dsh_base_settings["settings<br/>@deepseek-ai/dsh-settings"]
@@ -230,6 +232,7 @@ flowchart LR
 | `agent-default-model` | `@deepseek-ai/dsh-agent-default-model` |
 | `jobs` | `@deepseek-ai/dsh-jobs-local` |
 | `llm-retry` | `@deepseek-ai/dsh-llm-retry` |
+| `llm-image-route` | `@deepseek-ai/dsh-llm-image-route` |
 | `config-editor` | `@deepseek-ai/dsh-config-editor` |
 | `settings` | `@deepseek-ai/dsh-settings` |
 | `authorization` | `@deepseek-ai/dsh-authorization` |

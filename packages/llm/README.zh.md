@@ -9,7 +9,7 @@ kind: "package-group"
 
 ## 概述
 
-llm 组提供 harness 的模型调用能力：一个提供方无关的服务，任何组合都可以通过它向模型提供方发起流式请求，外加适配器、提供方专用请求元数据、重试执行与计量。核心 `llm` 包定义所有插件与会话日志使用的消息、内容块与流式分片词汇；提供方适配器把某个提供方的协议格式（wire format）翻译为该词汇；DeepSeek 请求扩展插件在模型输入之外贡献具有生命周期归属的元数据；`llm-retry` 在持久化的 agent（智能体）步骤边界上重跑失败的请求；`token-meter` 从持久化日志测量请求与上下文压力。本页列出该包组的组成；每个包 README 负责各自的包级约定。
+llm 组提供 harness 的模型调用能力：一个提供方无关的服务，任何组合都可以通过它向模型提供方发起流式请求，外加适配器、提供方专用请求元数据、图片路由、重试执行与计量。核心 `llm` 包定义所有插件与会话日志使用的消息、内容块与流式分片词汇；提供方适配器把某个提供方的协议格式（wire format）翻译为该词汇；DeepSeek 请求扩展插件在模型输入之外贡献具有生命周期归属的元数据；`llm-image-route` 为当前步骤选择支持图片的路由；`llm-retry` 在持久化的 agent（智能体）步骤边界上重跑失败的请求；`token-meter` 从持久化日志测量请求与上下文压力。本页列出该包组的组成；每个包 README 负责各自的包级约定。
 
 ## 目录
 
@@ -31,6 +31,7 @@ llm 组提供 harness 的模型调用能力：一个提供方无关的服务，�
 | [`llm-pi-ai/`](llm-pi-ai/README.zh.md) | 通过 pi-ai 目录与协议格式服务配置的提供方路由，包括手工声明的网关 | 注册到 `ctx.llm` |
 | [`deepseek-llm-api-extensions/`](deepseek-llm-api-extensions/README.zh.md) | 在官方 DeepSeek 请求上注册具有生命周期归属的顶层字段 | `ctx.deepseekLlmApiExtensions` |
 | [`plugin-package-inventory-deepseek/`](plugin-package-inventory-deepseek/README.zh.md) | 为官方 DeepSeek 请求贡献当前启用的 Loader 包清单 | 贡献 `dsh_plugin_packages` |
+| [`llm-image-route/`](llm-image-route/README.zh.md) | 将当前含图片的问题路由到已声明支持图片的模型，不改变下一次模型选择 | 监听 `agent/resolve-model` |
 | [`llm-retry/`](llm-retry/README.zh.md) | 在持久 agent 步骤边界上按各提供方策略重试失败的模型请求 | 监听 `agent/request-error` |
 | [`token-meter/`](token-meter/README.zh.md) | 用固定启发式规则从持久会话日志测量请求与上下文压力 | `ctx.tokenMeter` |
 

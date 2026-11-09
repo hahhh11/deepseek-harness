@@ -69,6 +69,8 @@ type PreparedStep =
     messages: UserMessage[]
     startsRequestSeries?: true
     assembly: PromptAssembly
+    /** Configured model selection before a step-local route policy chose its actual request route. */
+    configuredSelection: Readonly<ModelSelection>
     selection: Readonly<ModelSelection>
     /** Admission shared by the step's declarations and dispatch; the turn disposes it after the step. */
     toolSet: ResolvedToolSet
@@ -285,10 +287,16 @@ export class ReactLoopAgent implements Agent {
     if (this.phase.kind !== 'running') throw new Error(`agent "${this.id}": pre-step outside running phase`)
     const signal = this.phase.abort.signal
     const claimed = this.inbox.claim(target, position.turn)
-    const selection = this.model.current()
-    if (selection === undefined) {
+    const configuredSelection = this.model.current()
+    if (configuredSelection === undefined) {
       throw new Error(`agent "${this.id}" has no provider/model: set AgentOptions.provider and AgentOptions.model or record a model selection`)
     }
+    const selection = await this.dispatch.waterfall(
+      'agent/resolve-model',
+      { messages: claimed, ...position, signal, modelSelection: configuredSelection },
+      (): Promise<Readonly<ModelSelection>> => Promise.resolve(configuredSelection),
+    )
+    signal.throwIfAborted()
     const toolSet = await this.loopCtx.tools.resolve({ agent: this, modelSelection: selection, signal })
     try {
       const assembly = await this.loopCtx.systemPrompt.assemble({ ...assembleContextFor(this, signal), modelSelection: selection, toolSet })
@@ -309,7 +317,7 @@ export class ReactLoopAgent implements Agent {
         toolSet.dispose()
         return decision
       }
-      return { ...decision, assembly, selection, toolSet }
+      return { ...decision, assembly, configuredSelection, selection, toolSet }
     } catch (error: unknown) {
       toolSet.dispose()
       throw error
@@ -477,6 +485,10 @@ export class ReactLoopAgent implements Agent {
       }
       firstAttempt = false
       const request = this.buildRequest(config, preparedCall, assembly.tools, { turn, step }, startsRequestSeries, signal)
+      // A model-route policy may use another route for this one request. The
+      // actual route remains in request/header, while this selection controls
+      // the following step after that header updates the projection.
+      this.model.select(decision.configuredSelection)
       const live = new AssistantStreamAttempt(
         this.session.id,
         ++this.assistantAttemptCounter,

@@ -574,6 +574,32 @@ describe('agent/pre-step', () => {
   })
 })
 
+describe('agent/resolve-model', () => {
+  it('uses a step-local route without replacing the configured next model', async () => {
+    const adapter = new MockAdapter([textResponse('vision'), textResponse('text')])
+    const ctx = await harness(adapter)
+    ctx.llm.registerAdapter(['vision'], adapter)
+    const agent = await ctx.agentLoop.create(SessionId('temporary-model-route'), { provider: 'mock', model: 'text' })
+    ctx.on('agent/resolve-model', async ({ turn }, next) => {
+      const selected = await next()
+      return turn === 1 ? { provider: 'vision', model: 'vision' } : selected
+    })
+
+    send(agent, 'inspect the image')
+    await agent.whenIdle()
+
+    expect(adapter.requests[0]).toMatchObject({ provider: 'vision', model: 'vision' })
+    expect(agent.model.current()).toEqual({ provider: 'mock', model: 'text' })
+    expect(events(agent).filter(event => event.type === 'request/header').at(-1))
+      .toMatchObject({ data: { header: { config: { provider: 'vision', model: 'vision' } } } })
+
+    send(agent, 'continue')
+    await agent.whenIdle()
+
+    expect(adapter.requests[1]).toMatchObject({ provider: 'mock', model: 'text' })
+  })
+})
+
 describe('agent/created', () => {
   it('fires once with source "startup" for a fresh create, before the first turn', async () => {
     const adapter = new MockAdapter([textResponse('ok')])

@@ -99,6 +99,12 @@
     - id: llm-retry
       name: '@deepseek-ai/dsh-llm-retry'
 
+    # A text-only selection receives image questions through the first declared
+    # vision model on its provider. A profile can set an explicit fallback for
+    # providers whose catalog has no vision entry.
+    - id: llm-image-route
+      name: '@deepseek-ai/dsh-llm-image-route'
+
     # Live Config forms persist through the active profile patch.
 
     # Live configuration forms persist through the launcher's profile.
